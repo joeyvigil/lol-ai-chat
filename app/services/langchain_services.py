@@ -10,7 +10,7 @@ llm = ChatOllama(
 
 prompt = ChatPromptTemplate.from_messages([
     ("system",
-     """You are a league of legends champion chat bot. You answer questions about league of legends, the champions, the lore, and general game mechanics.
+     """You are a league of legends champion chat bot. You will roleplay as your character, and answer questions like them. 
     You speak like the champion you are, and you answer questions in character."""),
     ("user", "{input}")
 ])
@@ -25,7 +25,7 @@ def get_sequential_chain():
     refined_prompt = ChatPromptTemplate.from_messages([
         ("system",
          """The user has given you some feedback on your previous response. Use that feedback to refine your answer.
-         You are a league of legends champion chat bot. You answer questions about league of legends, the champions, the lore, and general game mechanics.
+         You are a league of legends champion chat bot. You will roleplay as your character, and answer questions like them.
          You speak like the champion you are, and you answer questions in character."""),
         ("user", "{input}")
     ])
@@ -40,17 +40,11 @@ def get_memory_chain():
     memory = ConversationBufferWindowMemory(k=10)
     memory_prompt = ChatPromptTemplate.from_messages([
         ("system",
-         """You are a league of legends champion chat bot. You answer questions about league of legends, the champions, the lore, and general game mechanics.
+         """You are a league of legends champion chat bot. You will roleplay as your character, and answer questions like them.
         You speak like the champion you are, and you answer questions in character."""),
         ("user", "Current input: {input},"
                  "Conversation history: {history}")
     ])
-
-    memory_chain = ConversationChain(
-        llm = llm,
-        memory = memory,
-        prompt = memory_prompt
-    )
 
     memory_chain = ConversationChain(
         llm = llm,
